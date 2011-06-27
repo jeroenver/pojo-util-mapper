@@ -7,7 +7,7 @@ import java.util.Date;
  * User: verelje
  * Date: 3/03/11
  */
-public class ComplexPojo {
+class ComplexPojo {
     private SimplePojo simplePojo;
     private Date dateField;
     private Collection<SimplePojo> myCollection;
