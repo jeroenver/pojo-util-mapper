@@ -20,7 +20,7 @@ public class ComplexPojo {
         return simplePojo;
     }
 
-    public void setSimplePojo(SimplePojo simplePojo) {
+    public void setSimplePojo(final SimplePojo simplePojo) {
         this.simplePojo = simplePojo;
     }
 
@@ -28,7 +28,7 @@ public class ComplexPojo {
         return dateField;
     }
 
-    public void setDateField(Date dateField) {
+    public void setDateField(final Date dateField) {
         this.dateField = dateField;
     }
 
@@ -44,7 +44,7 @@ public class ComplexPojo {
         return myCollection;
     }
 
-    public void setMyCollection(Collection<SimplePojo> myCollection) {
+    public void setMyCollection(final Collection<SimplePojo> myCollection) {
         this.myCollection = myCollection;
     }
 
