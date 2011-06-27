@@ -5,6 +5,5 @@ package pojo.util.transform.reflect;
  * Date: 3/03/11
  */
 public interface SourceProxy {
-
-    public Object getValue(Object Source);
+    Object getValue(final Object Source);
 }
