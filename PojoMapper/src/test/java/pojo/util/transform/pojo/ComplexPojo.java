@@ -1,5 +1,6 @@
 package pojo.util.transform.pojo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ public class ComplexPojo {
     private SimplePojo simplePojo;
     private Date dateField;
     private Collection<SimplePojo> myCollection;
+    private ArrayList<SimplePojo> myArrayList;
 
     public SimplePojo getSimplePojo() {
         return simplePojo;
@@ -26,6 +28,14 @@ public class ComplexPojo {
 
     public void setDateField(Date dateField) {
         this.dateField = dateField;
+    }
+
+    public ArrayList<SimplePojo> getMyArrayList() {
+        return myArrayList;
+    }
+
+    public void setMyArrayList(final ArrayList<SimplePojo> myArrayList) {
+        this.myArrayList = myArrayList;
     }
 
     public Collection<SimplePojo> getMyCollection() {
