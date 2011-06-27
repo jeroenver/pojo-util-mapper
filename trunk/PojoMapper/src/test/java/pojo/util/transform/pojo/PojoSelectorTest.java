@@ -7,9 +7,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.testng.Assert.*;
 import static pojo.util.transform.PojoSelector.select;
 import static pojo.util.transform.PojoSelector.valueOf;
-import static org.testng.Assert.*;
 
 /**
  * User: verelje
@@ -35,44 +35,51 @@ public final class PojoSelectorTest {
 
     @Test
     public void testSimpleGetter() throws Exception {
-        String field1 = valueOf(select(simplePojo).getField1());
+        String field1 = valueOf(select(simplePojo, SimplePojo.class).getField1());
         assertEquals(field1, "test1");
     }
 
     @Test
     public void testMoreComplexGetter() throws Exception {
-        String field1 = valueOf(select(complexPojo).getSimplePojo().getField1());
+        String field1 = valueOf(select(complexPojo, ComplexPojo.class).getSimplePojo().getField1());
         assertEquals(field1, "test1");
     }
 
     @Test
     public void testGetObject() throws Exception {
-        SimplePojo simplePojoReflect = valueOf(select(complexPojo).getSimplePojo());
+        SimplePojo simplePojoReflect = valueOf(select(complexPojo, ComplexPojo.class).getSimplePojo());
         assertEquals(simplePojoReflect, simplePojo);
     }
 
     @Test
     public void testWorkOnDate() throws Exception {
-        long time = valueOf(select(complexPojo).getDateField().getTime());
+        long time = valueOf(select(complexPojo, ComplexPojo.class).getDateField().getTime());
         assertTrue(time > 0);
     }
 
     @Test
     public void testGetNullField() throws Exception {
-        String field3 = valueOf(select(simplePojo).getField3());
+        String field3 = valueOf(select(simplePojo, SimplePojo.class).getField3());
         assertNull(field3);
     }
 
     @Test
     public void testGetNullObject() throws Exception {
         complexPojo.setSimplePojo(null);
-        String field1 = valueOf(select(complexPojo).getSimplePojo().getField1());
+        String field1 = valueOf(select(complexPojo, ComplexPojo.class).getSimplePojo().getField1());
+        assertNull(field1);
+    }
+
+    @Test
+    public void testGetNull() throws Exception {
+        final ComplexPojo complexPojo = null;
+        String field1 = valueOf(select(complexPojo, ComplexPojo.class).getSimplePojo().getField1());
         assertNull(field1);
     }
 
     @Test
     public void testGetDefaultValue() throws Exception {
-        String field3 = valueOf(select(simplePojo).getField3(), "default");
+        String field3 = valueOf(select(simplePojo, SimplePojo.class).getField3(), "default");
         assertEquals(field3, "default");
     }
 

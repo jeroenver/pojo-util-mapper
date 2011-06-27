@@ -21,14 +21,10 @@ public final class PojoSelector {
     private PojoSelector() {
     }
 
-    public static <T> T select(final T source) {
-        return select(source, (Class<T>) source.getClass());
-    }
-
     public static <T> T select(final T source, final Class<T> sourceClass) {
         Object result = source;
         if (!Modifier.isFinal(sourceClass.getModifiers())) {
-            final Callback callback = new SelectorInterceptor(source);
+            final Callback callback = new SelectorInterceptor(source, sourceClass);
             final Enhancer enhancer = new Enhancer();
             enhancer.setSuperclass(sourceClass);
             enhancer.setCallback(callback);
