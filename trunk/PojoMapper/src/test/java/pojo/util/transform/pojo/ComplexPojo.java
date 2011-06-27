@@ -1,5 +1,6 @@
 package pojo.util.transform.pojo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -13,6 +14,7 @@ public class ComplexPojo {
     private Date dateField;
     private Collection<SimplePojo> myCollection;
     private ArrayList<SimplePojo> myArrayList;
+    private BigDecimal bigDecimal;
 
     public SimplePojo getSimplePojo() {
         return simplePojo;
@@ -44,5 +46,13 @@ public class ComplexPojo {
 
     public void setMyCollection(Collection<SimplePojo> myCollection) {
         this.myCollection = myCollection;
+    }
+
+    public BigDecimal getBigDecimal() {
+        return bigDecimal;
+    }
+
+    public void setBigDecimal(final BigDecimal bigDecimal) {
+        this.bigDecimal = bigDecimal;
     }
 }

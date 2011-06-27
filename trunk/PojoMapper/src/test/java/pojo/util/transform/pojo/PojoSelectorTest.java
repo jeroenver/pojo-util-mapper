@@ -3,8 +3,10 @@ package pojo.util.transform.pojo;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
 import java.util.*;
 
+import static java.math.BigDecimal.ONE;
 import static org.testng.Assert.*;
 import static pojo.util.transform.PojoSelector.select;
 import static pojo.util.transform.PojoSelector.valueOf;
@@ -27,6 +29,7 @@ public final class PojoSelectorTest {
         simplePojo.setField2("test2");
         complexPojo.setSimplePojo(simplePojo);
         complexPojo.setDateField(new Date());
+        complexPojo.setBigDecimal(ONE);
         pojoList = new LinkedList<SimplePojo>();
         complexPojo.setMyCollection(pojoList);
         pojoList.add(simplePojo);
@@ -37,6 +40,12 @@ public final class PojoSelectorTest {
     public void testSimpleGetter() throws Exception {
         String field1 = valueOf(select(simplePojo, SimplePojo.class).getField1());
         assertEquals(field1, "test1");
+    }
+
+    @Test
+    public void testSimpleGetterNoDefaultConstructor() throws Exception {
+        BigDecimal result = valueOf(select(complexPojo, ComplexPojo.class).getBigDecimal());
+        assertEquals(result, ONE);
     }
 
     @Test
