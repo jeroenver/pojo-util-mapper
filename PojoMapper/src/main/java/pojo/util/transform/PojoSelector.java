@@ -55,7 +55,6 @@ public final class PojoSelector {
     }
 
     public static <T> QuerySource<T> query(final List<T> sourceList){
-
         return null;
     }
 }

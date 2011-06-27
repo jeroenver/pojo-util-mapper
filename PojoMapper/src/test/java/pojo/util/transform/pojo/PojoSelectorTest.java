@@ -90,10 +90,4 @@ public final class PojoSelectorTest {
         String field3 = valueOf(select(simplePojo, SimplePojo.class).getField3(), "default");
         assertEquals(field3, "default");
     }
-
-    @Test
-    public void testSimpleQuery() throws Exception {
-        //query(pojoList).lookingFor();
-
-    }
 }
