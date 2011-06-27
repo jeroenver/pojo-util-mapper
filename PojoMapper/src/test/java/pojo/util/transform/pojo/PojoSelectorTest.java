@@ -31,11 +31,6 @@ public final class PojoSelectorTest {
         complexPojo.setMyCollection(pojoList);
         pojoList.add(simplePojo);
         pojoList.add(new SimplePojo());
-
-        pojoArrayList = new ArrayList<SimplePojo>();
-        complexPojo.setMyArrayList(pojoArrayList);
-        pojoArrayList.add(simplePojo);
-        pojoArrayList.add(new SimplePojo());
     }
 
     @Test
@@ -60,6 +55,14 @@ public final class PojoSelectorTest {
     public void testConcreteCollectionGetter() throws Exception {
         final Collection<SimplePojo> result = valueOf(select(complexPojo, ComplexPojo.class).getMyArrayList());
         assertEquals(result, pojoArrayList);
+    }
+
+    @Test
+    public void testNullCollectionGetter() throws Exception {
+        ComplexPojo complexPojo2 = new ComplexPojo();
+        complexPojo2.setMyCollection(null);
+        final Collection<SimplePojo> result = valueOf(select(complexPojo2, ComplexPojo.class).getMyCollection());
+        assertNull(result);
     }
 
     @Test

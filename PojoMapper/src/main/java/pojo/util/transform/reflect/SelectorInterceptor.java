@@ -35,15 +35,16 @@ public final class SelectorInterceptor implements MethodInterceptor {
     }
 
     private Object interceptOtherMethods(final Object o, final Method method, final Object[] objects, final MethodProxy methodProxy) throws Throwable {
-        final Class resultType = method.getReturnType();
-        logger.trace("InterceptOtherMethods: Need new proxy with returnType " + resultType);
+        Class resultType = method.getReturnType();
         Object result;
         try {
             result = method.invoke(source, objects);
+            resultType = result.getClass();
         } catch (NullPointerException e) {
             logger.trace("returning null for method call " + method.toString());
             result = null;
         }
+        logger.trace("InterceptOtherMethods: Need new proxy with returnType " + resultType);
         return select(result, resultType);
     }
 
