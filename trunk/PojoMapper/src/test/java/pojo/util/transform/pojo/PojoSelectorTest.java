@@ -3,6 +3,7 @@ package pojo.util.transform.pojo;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +19,7 @@ import static pojo.util.transform.PojoSelector.valueOf;
 public final class PojoSelectorTest {
     private SimplePojo simplePojo;
     private ComplexPojo complexPojo;
-    private List<ComplexPojo> pojoList;
+    private Collection<SimplePojo> pojoList;
 
     @BeforeMethod
     public void initPojos() {
@@ -28,9 +29,10 @@ public final class PojoSelectorTest {
         simplePojo.setField2("test2");
         complexPojo.setSimplePojo(simplePojo);
         complexPojo.setDateField(new Date());
-        pojoList = new LinkedList<ComplexPojo>();
-        pojoList.add(complexPojo);
-        pojoList.add(new ComplexPojo());
+        pojoList = new LinkedList<SimplePojo>();
+        complexPojo.setMyCollection(pojoList);
+        pojoList.add(simplePojo);
+        pojoList.add(new SimplePojo());
     }
 
     @Test
@@ -43,6 +45,12 @@ public final class PojoSelectorTest {
     public void testMoreComplexGetter() throws Exception {
         String field1 = valueOf(select(complexPojo, ComplexPojo.class).getSimplePojo().getField1());
         assertEquals(field1, "test1");
+    }
+
+    @Test
+    public void testCollectionGetter() throws Exception {
+        final Collection<SimplePojo> result = valueOf(select(complexPojo, ComplexPojo.class).getMyCollection());
+        assertEquals(result, pojoList);
     }
 
     @Test
