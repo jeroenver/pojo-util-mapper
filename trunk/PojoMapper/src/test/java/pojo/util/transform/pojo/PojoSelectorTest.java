@@ -3,10 +3,7 @@ package pojo.util.transform.pojo;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static org.testng.Assert.*;
 import static pojo.util.transform.PojoSelector.select;
@@ -19,7 +16,8 @@ import static pojo.util.transform.PojoSelector.valueOf;
 public final class PojoSelectorTest {
     private SimplePojo simplePojo;
     private ComplexPojo complexPojo;
-    private Collection<SimplePojo> pojoList;
+    private List<SimplePojo> pojoList;
+    private ArrayList<SimplePojo> pojoArrayList;
 
     @BeforeMethod
     public void initPojos() {
@@ -33,6 +31,11 @@ public final class PojoSelectorTest {
         complexPojo.setMyCollection(pojoList);
         pojoList.add(simplePojo);
         pojoList.add(new SimplePojo());
+
+        pojoArrayList = new ArrayList<SimplePojo>();
+        complexPojo.setMyArrayList(pojoArrayList);
+        pojoArrayList.add(simplePojo);
+        pojoArrayList.add(new SimplePojo());
     }
 
     @Test
@@ -51,6 +54,12 @@ public final class PojoSelectorTest {
     public void testCollectionGetter() throws Exception {
         final Collection<SimplePojo> result = valueOf(select(complexPojo, ComplexPojo.class).getMyCollection());
         assertEquals(result, pojoList);
+    }
+
+    @Test
+    public void testConcreteCollectionGetter() throws Exception {
+        final Collection<SimplePojo> result = valueOf(select(complexPojo, ComplexPojo.class).getMyArrayList());
+        assertEquals(result, pojoArrayList);
     }
 
     @Test
